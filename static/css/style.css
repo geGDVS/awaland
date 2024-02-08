@@ -1,0 +1,12 @@
+#main {
+  width: 66%;
+  margin: auto;
+}
+blockquote {
+    padding: 3px 10px;
+    margin: 3px;
+    border-left: 5px solid #4e4e4e;
+}
+p {
+    margin: 0;
+}
