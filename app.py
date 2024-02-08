@@ -2,7 +2,8 @@ from flask import Flask
 from flask import render_template
 from flask import request
 import os
-
+import json
+  
 app = Flask(__name__)
 
 @app.route('/')
@@ -17,17 +18,23 @@ def uptext():
     else:
         if request.form["token"] == os.getenv("TOKEN"):
             text = request.form['text']
-            with open('static/text', 'w') as f:
-                f.write(text)
-                f.close()
+            # store something
+            s3.put_object(
+                Body=json.dumps({'text': text}),
+                Bucket="cyclic-shy-tam-elk-us-west-1",
+                Key="some_files/my_file.json"
+            ) 
             return {"code": "200", "msg": "上传成功"}
         else:
             return {"code": "200", "msg": "token错误"}
 
 @app.route('/gettext')
 def gettext():
-    with open('static/text') as f:
-        text = f.read()
-        f.close()
+    # get it back
+    my_file = s3.get_object(
+        Bucket="cyclic-shy-tam-elk-us-west-1",
+        Key="some_files/my_file.json"
+    )
+    text = json.loads(my_file['Body'].read())['text']
     return text
 
