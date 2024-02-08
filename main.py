@@ -9,7 +9,7 @@ text = "AWA"
 
 @app.route('/')
 def index():
-    return 'Hello from Flask!'
+    return 'AWA!'
 
 @app.route('/awaya', methods=['GET', 'POST'])
 def uptext():
