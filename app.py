@@ -3,6 +3,8 @@ from flask import render_template
 from flask import request
 import os
 import json
+import boto3
+s3 = boto3.client('s3')
   
 app = Flask(__name__)
 
